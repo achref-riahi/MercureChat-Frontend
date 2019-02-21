@@ -1,0 +1,8 @@
+.message{
+  margin-bottom: 0rem;
+}
+
+.card-body {
+    height: 50vh;
+    overflow-y: auto;
+}

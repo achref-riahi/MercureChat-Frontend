@@ -1,0 +1,36 @@
+<div class="card mt-5" style="margin:auto;width: 600px;">
+  <div class="card-body">
+    <h5 class="card-title">Register</h5>
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+          <label>Email</label>
+          <input type="text" formControlName="email" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
+          <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+              <div *ngIf="f.email.errors.required">Email is required</div>
+              <div *ngIf="f.email.errors.email">Email must be a valid email address</div>
+          </div>
+      </div>
+      <div [formGroup]="passwordFormGroup">
+          <div class="form-group">
+              <label>Password</label>
+              <input type="password" formControlName="password" class="form-control" autocomplete="password" [ngClass]="{ 'is-invalid': submitted && fpassword.password.errors }" />
+              <div *ngIf="submitted && fpassword.password.errors" class="invalid-feedback">
+                  <div *ngIf="fpassword.password.errors.required">Password is required</div>
+                  <div *ngIf="fpassword.password.errors.minlength">Password must be at least 6 characters</div>
+                  <div *ngIf="fpassword.password.errors.maxlength">Password must be at max 4096 characters</div>
+              </div>
+          </div>
+          <div class="form-group">
+             <label>Confirm Password</label>
+             <input type="password" formControlName="confirmPassword" class="form-control" autocomplete="password" [ngClass]="{ 'is-invalid': submitted && fpassword.confirmPassword.errors || passwordFormGroup.errors?.doesMatchPassword  }" />
+             <div *ngIf="submitted && fpassword.confirmPassword.errors || passwordFormGroup.errors?.doesMatchPassword" class="invalid-feedback">
+                 <div *ngIf="fpassword.confirmPassword.errors?.required">Password is required</div>
+                 <div *ngIf="passwordFormGroup.errors?.doesMatchPassword">Password does not match</div>
+             </div>
+          </div>
+      </div>
+      <button type="submit" class="btn btn-primary" [disabled]="loading">Register</button>
+      <a routerLink="/login" class="btn btn-outline-danger float-right" >Cancel</a>
+    </form>
+  </div>
+</div>
